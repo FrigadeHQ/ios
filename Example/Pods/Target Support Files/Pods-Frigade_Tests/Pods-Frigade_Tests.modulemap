@@ -1,0 +1,6 @@
+framework module Pods_Frigade_Tests {
+  umbrella header "Pods-Frigade_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

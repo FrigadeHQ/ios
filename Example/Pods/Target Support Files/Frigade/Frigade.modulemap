@@ -1,0 +1,6 @@
+framework module Frigade {
+  umbrella header "Frigade-umbrella.h"
+
+  export *
+  module * { export * }
+}

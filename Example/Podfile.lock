@@ -1,0 +1,16 @@
+PODS:
+  - Frigade (0.1.0)
+
+DEPENDENCIES:
+  - Frigade (from `../`)
+
+EXTERNAL SOURCES:
+  Frigade:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Frigade: 62d6ea9c0b65dc44c42b189574acf61b8ac826c8
+
+PODFILE CHECKSUM: cf604a50c364e53429c1a28dfe07cfc42e3ced23
+
+COCOAPODS: 1.11.3

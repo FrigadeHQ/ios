@@ -1,0 +1,22 @@
+{
+  "name": "Frigade",
+  "version": "0.1.0",
+  "summary": "A short description of Frigade.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/christianmat/Frigade",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "christianmat": "christian_mathiesen@alumni.brown.edu"
+  },
+  "source": {
+    "git": "https://github.com/christianmat/Frigade.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "source_files": "Frigade/Classes/**/*"
+}
