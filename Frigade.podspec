@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Frigade'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'The official iOS SDK for Frigade.'
   s.swift_versions = '5.0'
 # This description is used to generate tags and improve search results.
