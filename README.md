@@ -22,7 +22,7 @@ pod 'Frigade'
 
 ## Author
 
-christianmat, christian_mathiesen@alumni.brown.edu
+[Frigade](https://frigade.com)
 
 ## License
 

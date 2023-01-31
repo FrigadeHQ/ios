@@ -1,6 +1,6 @@
 use_frameworks!
 
-platform :ios, '10.0'
+platform :ios, '11.0'
 
 target 'Frigade_Example' do
   pod 'Frigade', :path => '../'
@@ -8,6 +8,6 @@ target 'Frigade_Example' do
   target 'Frigade_Tests' do
     inherit! :search_paths
 
-    
+
   end
 end
