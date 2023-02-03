@@ -27,3 +27,11 @@ extension NSTextAlignment {
         
     }
 }
+
+struct FlowResponsesModel: Codable {
+    let foreignUserId: String?
+    let flowSlug: String
+    let stepId: String?
+    let actionType: String
+    let data: String
+}

@@ -24,6 +24,20 @@ public class FrigadeFlow {
         swiperFlowVc.delegate = self
         swiperFlowVc.presentingFlow = self
         viewController.present(swiperFlowVc, animated: true, completion: {self.delegate?.frigadeFlowStarted(frigadeFlow: self)})
+        
+        
+        let content = FlowResponsesModel(foreignUserId: FrigadeProvider.config?.userId,
+                                         flowSlug: flowId,
+                                         stepId: data.first?.id,
+                                         actionType: "STARTED_FLOW",
+                                         data: "{}")
+        
+        FrigadeAPI.flowResponses(content: content).sink(receiveCompletion: { completion in
+            if case let .failure(error) = completion {
+                NSLog("Error: \(error.localizedDescription)")
+            }
+        }, receiveValue: { response in
+        }).store(in: &FrigadeAPI.requests)
     }
 }
 
