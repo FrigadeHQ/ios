@@ -1,4 +1,8 @@
 
+protocol ContentViewControllerDelegate: AnyObject {
+    func contentViewControllerDidTapPrimaryButton(viewController: BasicContentViewController)
+}
+
 class BasicContentViewController: UIViewController {
     var data: FlowModel? {
         didSet {
@@ -11,7 +15,9 @@ class BasicContentViewController: UIViewController {
             primaryButton.isHidden = (data?.primaryButtonTitle == nil)
         }
     }
-    
+
+    weak var delegate: ContentViewControllerDelegate?
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title1)
@@ -33,6 +39,7 @@ class BasicContentViewController: UIViewController {
     private lazy var primaryButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(onPrimaryButton), for: .touchUpInside)
         return button
     }()
 
@@ -47,6 +54,10 @@ class BasicContentViewController: UIViewController {
             stack.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             stack.topAnchor.constraint(equalTo: view.topAnchor),
             stack.bottomAnchor.constraint(equalTo: view.bottomAnchor)])
+    }
+    
+    @objc private func onPrimaryButton() {
+        delegate?.contentViewControllerDidTapPrimaryButton(viewController: self)
     }
 }
 

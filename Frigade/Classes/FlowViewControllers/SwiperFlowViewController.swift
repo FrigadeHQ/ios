@@ -1,7 +1,17 @@
 import Foundation
 
+
+protocol SwiperFlowViewControllerDelegate: AnyObject {
+    func swiperFlowViewController(viewController: SwiperFlowViewController, onPrimaryButtonForModel model: FlowModel)
+    func swiperFlowViewControllerOnDismiss(viewController: SwiperFlowViewController)
+}
+
 class SwiperFlowViewController: UIViewController {
     let data: [FlowModel]
+    weak var delegate: SwiperFlowViewControllerDelegate?
+    
+    // used to keep the owning flow alive until VC is dismissed/deallocated
+    var presentingFlow: FrigadeFlow?
     
     private lazy var contentController: UIPageViewController = {
         let contentController = UIPageViewController(transitionStyle: .scroll,
@@ -22,6 +32,13 @@ class SwiperFlowViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if isBeingDismissed {
+            delegate?.swiperFlowViewControllerOnDismiss(viewController: self)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = CommonColor.darkBackground
@@ -35,7 +52,7 @@ class SwiperFlowViewController: UIViewController {
             contentController.view.topAnchor.constraint(equalTo: view.topAnchor),
             contentController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             contentController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            contentController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            contentController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
         
         contentController.setViewControllers([viewController(forIndex: 0)].compactMap({$0}), direction: .forward, animated: false, completion: nil)
@@ -47,7 +64,15 @@ class SwiperFlowViewController: UIViewController {
         }
         let vc = BasicContentViewController()
         vc.data = data[index]
+        vc.delegate = self
         return vc
+    }
+}
+
+extension SwiperFlowViewController: ContentViewControllerDelegate {
+    func contentViewControllerDidTapPrimaryButton(viewController: BasicContentViewController) {
+        guard let data = viewController.data else { return }
+        self.delegate?.swiperFlowViewController(viewController: self, onPrimaryButtonForModel: data)
     }
 }
 

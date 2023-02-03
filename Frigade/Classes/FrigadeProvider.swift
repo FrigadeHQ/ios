@@ -35,7 +35,7 @@ public class FrigadeProvider {
     
     public static func setup(configuration: FrigadeConfiguration) {
         self.config = configuration
-        
+  
     }
     
     public static func load(flowId: String, completionHandler: @escaping (Result<FrigadeFlow, FrigateProviderError>)->Void) {       
@@ -44,8 +44,7 @@ public class FrigadeProvider {
                 completionHandler(.failure(.API(error)))
             }
         }, receiveValue: { response in
-            let dummyFlow = FrigadeFlow(data: response.data)
-            completionHandler(.success(dummyFlow))
+            completionHandler(.success(FrigadeFlow(flowId: flowId, data: response.data)))
         }).store(in: &self.cancellables)
     }
 }

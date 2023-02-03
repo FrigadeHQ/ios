@@ -1,20 +1,7 @@
-//
-//  ViewController.swift
-//  Frigade
-//
-//  Created by christianmat on 01/31/2023.
-//  Copyright (c) 2023 christianmat. All rights reserved.
-//
-
 import UIKit
 import Frigade
 
 class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -38,4 +25,15 @@ class ViewController: UIViewController {
 
 
 extension ViewController: FrigadeFlowDelegate {
+    func frigateFlow(frigadeFlow: FrigadeFlow, didTapPrimaryButtonOnFlowModel id: String) {
+        NSLog("[FrigadeFlowDelegate] Primary Button tapped on page \(id)")
+    }
+    
+    func frigateFlowOnPresent(frigadeFlow: FrigadeFlow) {
+        NSLog("[FrigadeFlowDelegate] Flow \(frigadeFlow.flowId) presented")
+    }
+    
+    func frigateFlowOnDismiss(frigadeFlow: FrigadeFlow) {
+        NSLog("[FrigadeFlowDelegate] Flow \(frigadeFlow.flowId) dismissed")
+    }
 }
