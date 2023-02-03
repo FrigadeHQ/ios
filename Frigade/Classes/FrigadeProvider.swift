@@ -31,8 +31,6 @@ extension FrigadeProviderError: LocalizedError {
 public class FrigadeProvider {
     static var config: FrigadeConfiguration?
     
-    private static var cancellables = Set<AnyCancellable>()
-    
     public static func setup(configuration: FrigadeConfiguration) {
         self.config = configuration
   
@@ -45,6 +43,6 @@ public class FrigadeProvider {
             }
         }, receiveValue: { response in
             completionHandler(.success(FrigadeFlow(flowId: flowId, data: response.data)))
-        }).store(in: &self.cancellables)
+        }).store(in: &FrigadeAPI.requests)
     }
 }
