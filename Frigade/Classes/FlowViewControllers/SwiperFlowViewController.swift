@@ -2,6 +2,7 @@ import Foundation
 
 
 protocol SwiperFlowViewControllerDelegate: AnyObject {
+    func swiperFlowViewController(viewController: SwiperFlowViewController, didShowModel model: FlowModel)
     func swiperFlowViewController(viewController: SwiperFlowViewController, onPrimaryButtonForModel model: FlowModel)
     func swiperFlowViewControllerOnDismiss(viewController: SwiperFlowViewController)
 }
