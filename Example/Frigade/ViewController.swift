@@ -25,15 +25,15 @@ class ViewController: UIViewController {
 
 
 extension ViewController: FrigadeFlowDelegate {
-    func frigateFlow(frigadeFlow: FrigadeFlow, didTapPrimaryButtonOnFlowModel id: String) {
+    func frigadeFlow(frigadeFlow: FrigadeFlow, didTapPrimaryButtonOnFlowModel id: String) {
         NSLog("[FrigadeFlowDelegate] Primary Button tapped on page \(id)")
     }
     
-    func frigateFlowOnPresent(frigadeFlow: FrigadeFlow) {
+    func frigadeFlowOnPresent(frigadeFlow: FrigadeFlow) {
         NSLog("[FrigadeFlowDelegate] Flow \(frigadeFlow.flowId) presented")
     }
     
-    func frigateFlowOnDismiss(frigadeFlow: FrigadeFlow) {
+    func frigadeFlowOnDismiss(frigadeFlow: FrigadeFlow) {
         NSLog("[FrigadeFlowDelegate] Flow \(frigadeFlow.flowId) dismissed")
     }
 }

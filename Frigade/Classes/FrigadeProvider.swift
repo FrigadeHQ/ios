@@ -12,18 +12,18 @@ public struct FrigadeConfiguration {
     }
 }
 
-public enum FrigateProviderError: Error {
+public enum FrigadeProviderError: Error {
     case unknown
     case API(Error)
 }
 
-extension FrigateProviderError: LocalizedError {
+extension FrigadeProviderError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .unknown:
             return "Something went wrong."
         case .API(let error):
-            return "FrigateAPI error: \(error.localizedDescription)"
+            return "FrigadeAPI error: \(error.localizedDescription)"
         }
     }
 }
@@ -38,7 +38,7 @@ public class FrigadeProvider {
   
     }
     
-    public static func load(flowId: String, completionHandler: @escaping (Result<FrigadeFlow, FrigateProviderError>)->Void) {       
+    public static func load(flowId: String, completionHandler: @escaping (Result<FrigadeFlow, FrigadeProviderError>)->Void) {       
         FrigadeAPI.flow(flowId: flowId).sink(receiveCompletion: { completion in
             if case let .failure(error) = completion {
                 completionHandler(.failure(.API(error)))
