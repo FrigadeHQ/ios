@@ -15,6 +15,7 @@ public class FrigadeFlow {
     private var didTapPrimaryButton = false
     
     init(flowId: String, data: [FlowModel]) {
+        assert(!data.isEmpty)
         self.flowId = flowId
         self.data = data
     }
@@ -24,19 +25,20 @@ public class FrigadeFlow {
         swiperFlowVc.delegate = self
         swiperFlowVc.presentingFlow = self
         viewController.present(swiperFlowVc, animated: true, completion: {self.delegate?.frigadeFlowStarted(frigadeFlow: self)})
-        
-        
+        emitFlowResponse(flowModel: data.first!, actionType: .startedFlow)
+    }
+    
+    private func emitFlowResponse(flowModel: FlowModel, actionType: FlowResponsesModel.ActionType) {
         let content = FlowResponsesModel(foreignUserId: FrigadeProvider.config?.userId,
                                          flowSlug: flowId,
-                                         stepId: data.first?.id,
-                                         actionType: "STARTED_FLOW",
+                                         stepId: flowModel.id,
+                                         actionType: actionType,
                                          data: "{}")
-        
         FrigadeAPI.flowResponses(content: content).sink(receiveCompletion: { completion in
             if case let .failure(error) = completion {
                 NSLog("Error: \(error.localizedDescription)")
             }
-        }, receiveValue: { response in
+        }, receiveValue: { _ in
         }).store(in: &FrigadeAPI.requests)
     }
 }
@@ -54,8 +56,10 @@ extension FrigadeFlow: SwiperFlowViewControllerDelegate {
     func swiperFlowViewControllerOnDismiss(viewController: SwiperFlowViewController) {
         if didTapPrimaryButton {
             delegate?.frigadeFlowCompleted(frigadeFlow: self)
+            emitFlowResponse(flowModel: data.first!, actionType: .completedFlow)
         } else {
             delegate?.frigadeFlowAborted(frigadeFlow: self)
+            emitFlowResponse(flowModel: data.first!, actionType: .abortedFlow)
         }
     }
 }

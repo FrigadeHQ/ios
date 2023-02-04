@@ -29,9 +29,16 @@ extension NSTextAlignment {
 }
 
 struct FlowResponsesModel: Codable {
+    enum ActionType: String, Codable {
+        case startedFlow = "STARTED_FLOW"
+        case completedFlow = "COMPLETED_FLOW"
+        case abortedFlow = "ABORTED_FLOW"
+        case startedStep = "STARTED_STEP"
+        case completedStep = "COMPLETED_STEP"
+    }
     let foreignUserId: String?
     let flowSlug: String
     let stepId: String?
-    let actionType: String
+    let actionType: ActionType
     let data: String
 }

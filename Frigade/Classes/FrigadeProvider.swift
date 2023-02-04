@@ -14,16 +14,17 @@ public struct FrigadeConfiguration {
 
 public enum FrigadeProviderError: Error {
     case unknown
+    case invalidFlow
     case API(Error)
 }
 
 extension FrigadeProviderError: LocalizedError {
     public var errorDescription: String? {
         switch self {
-        case .unknown:
-            return "Something went wrong."
         case .API(let error):
             return "FrigadeAPI error: \(error.localizedDescription)"
+        default:
+            return "FrigadeAPI error \(self)"
         }
     }
 }
@@ -42,6 +43,11 @@ public class FrigadeProvider {
                 completionHandler(.failure(.API(error)))
             }
         }, receiveValue: { response in
+            // don't accept empty flows
+            guard !response.data.isEmpty else {
+                completionHandler(.failure(.invalidFlow))
+                return
+            }
             completionHandler(.success(FrigadeFlow(flowId: flowId, data: response.data)))
         }).store(in: &FrigadeAPI.requests)
     }
