@@ -22,6 +22,9 @@ public class FrigadeFlow {
     }
     
     public func present(overViewController viewController: UIViewController) {
+        // FIXME: TODO: this is temporary hack to make things look OK for now, remove later
+        ControlFactory.setupDefaultAppearance()
+        
         let swiperFlowVc = SwiperFlowViewController(data: data)
         swiperFlowVc.delegate = self
         swiperFlowVc.presentingFlow = self

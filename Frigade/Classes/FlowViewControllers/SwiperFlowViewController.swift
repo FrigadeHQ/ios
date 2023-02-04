@@ -27,7 +27,7 @@ class SwiperFlowViewController: UIViewController {
     }()
     
     private lazy var primaryButton: UIButton = {
-        let button = ControlFactory.button(title: "testing 1,2,3")
+        let button = ControlFactory.button()
         button.addTarget(self, action: #selector(onPrimaryButton), for: .touchUpInside)
         return button
     }()
@@ -56,7 +56,7 @@ class SwiperFlowViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = CommonColor.darkBackground
+        view.backgroundColor = .white
         
         addChild(contentController)
         contentController.view.translatesAutoresizingMaskIntoConstraints = false

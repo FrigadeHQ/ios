@@ -25,7 +25,3 @@ class BasicContentViewController: UIViewController {
     }
 }
 
-struct CommonColor {
-    static let darkBackground = UIColor(red: 5/255.0, green: 0, blue: 40/255.0, alpha: 1)
-    static let lightText = UIColor(red: 22/255.0, green: 163/255.0, blue: 249/255.0, alpha: 1)
-}
