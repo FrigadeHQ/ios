@@ -25,10 +25,10 @@ class BasicContentViewController: UIViewController {
         stack.spacing = 8
         view.addSubview(stack)
         NSLayoutConstraint.activate([
-            stack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            stack.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            stack.topAnchor.constraint(equalTo: view.topAnchor),
-            stack.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            stack.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            stack.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            stack.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 24),
+            stack.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.5),
         ])
     }

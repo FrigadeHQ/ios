@@ -66,9 +66,9 @@ class SwiperFlowViewController: UIViewController {
         view.addSubview(primaryButton)
         
         NSLayoutConstraint.activate([
-            contentController.view.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            contentController.view.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            contentController.view.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            contentController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            contentController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             contentController.view.bottomAnchor.constraint(equalTo: primaryButton.topAnchor, constant: -8),
             
             primaryButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
