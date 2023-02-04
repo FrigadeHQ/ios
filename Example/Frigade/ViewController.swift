@@ -2,8 +2,26 @@ import UIKit
 import Frigade
 
 class ViewController: UIViewController {
+    let button = UIButton()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        button.setTitle("Load flow", for: .normal)
+        button.addTarget(self, action: #selector(onLoadFlow), for: .touchUpInside)
+        
+        view.addSubview(button)
+        button.frame = CGRect(x: view.center.x-128, y: 64, width: 256, height: 48)
+        button.backgroundColor = .black
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    @objc func onLoadFlow() {
+        button.setTitle("Loading...", for: .normal)
+        button.isUserInteractionEnabled = false
         
         FrigadeProvider.load(flowId: "flow_NP2Petdcsjxq613V") { result in
             switch result {
@@ -13,14 +31,11 @@ class ViewController: UIViewController {
             case .failure(let error):
                 NSLog("Error loading flow. Reason: \(error.localizedDescription)")
             }
+            
+            self.button.setTitle("Load flow", for: .normal)
+            self.button.isUserInteractionEnabled = true
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 }
 
 
