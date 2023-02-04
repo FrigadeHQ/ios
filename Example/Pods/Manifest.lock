@@ -1,16 +1,23 @@
 PODS:
-  - Frigade (0.1.1)
+  - Frigade (0.1.1):
+    - Kingfisher (~> 7.0)
+  - Kingfisher (7.5.0)
 
 DEPENDENCIES:
   - Frigade (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - Kingfisher
 
 EXTERNAL SOURCES:
   Frigade:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Frigade: 08eb40ca13aeb08d8a396cf11d4ee68f4c4a0983
+  Frigade: 9b8ae6499e7c30ef7a83f38d27f8dc93a186ced8
+  Kingfisher: b9c2a4a4af2990a768445c277359b27bde287d71
 
-PODFILE CHECKSUM: e46ff61dc887187b6d50c3430f137dfb84e6f16e
+PODFILE CHECKSUM: 1125f11c4a6fa2483ca25628501446e2c0aec085
 
 COCOAPODS: 1.11.3

@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
 
-  s.ios.deployment_target = '11.0'
+  s.ios.deployment_target = '13.0'
 
   s.source_files = 'Frigade/Classes/**/*'
 
@@ -39,5 +39,5 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'Kingfisher', '~> 7.0'
 end
