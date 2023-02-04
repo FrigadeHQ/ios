@@ -16,6 +16,7 @@ extension FrigadeAPI {
     static func flowResponses(content: FlowResponsesModel) -> AnyPublisher<DataArrayResponse<FlowModel>, Error> {
         var request = URLRequest(url: base.appendingPathComponent("flowResponses"))
         request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try? JSONEncoder().encode(content)
         return run(request)
     }
