@@ -12,7 +12,8 @@ public class FrigadeFlow {
     public weak var delegate: FrigadeFlowDelegate?
     public let flowId: String
     private let data: [FlowModel]
-    private var didTapPrimaryButton = false
+    private var isDismissingByPrimaryButton = false
+    private var previousModelId: String?
     
     init(flowId: String, data: [FlowModel]) {
         assert(!data.isEmpty)
@@ -45,16 +46,31 @@ public class FrigadeFlow {
 
 extension FrigadeFlow: SwiperFlowViewControllerDelegate {
     func swiperFlowViewController(viewController: SwiperFlowViewController, didShowModel model: FlowModel) {
-        
+        if model.id != previousModelId {
+            if let previousId = previousModelId {
+                delegate?.frigadeFlow(frigadeFlow: self, completedStep: previousId)
+            }
+            delegate?.frigadeFlow(frigadeFlow: self, startedStep: model.id)
+            previousModelId = model.id
+        }
     }
     
-    func swiperFlowViewController(viewController: SwiperFlowViewController, onPrimaryButtonForModel model: FlowModel) {
-        didTapPrimaryButton = true
-        viewController.dismiss(animated: true)
+    func swiperFlowViewController(viewController: SwiperFlowViewController, didTapPrimaryButtonForModel model: FlowModel) {
+        if model.id == data.last?.id {
+            isDismissingByPrimaryButton = true
+            viewController.dismiss(animated: true)
+        } else {
+            viewController.advanceToNextPage()
+        }
     }
     
     func swiperFlowViewControllerOnDismiss(viewController: SwiperFlowViewController) {
-        if didTapPrimaryButton {
+        if let previousId = previousModelId {
+            delegate?.frigadeFlow(frigadeFlow: self, completedStep: previousId)
+            previousModelId = nil
+        }
+        
+        if isDismissingByPrimaryButton {
             delegate?.frigadeFlowCompleted(frigadeFlow: self)
             emitFlowResponse(flowModel: data.first!, actionType: .completedFlow)
         } else {

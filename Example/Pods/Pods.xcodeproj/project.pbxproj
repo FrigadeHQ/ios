@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C79D283298E0A7000748FBD /* ControlFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79D282298E0A7000748FBD /* ControlFactory.swift */; };
+		0C79D286298E165700748FBD /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79D285298E165700748FBD /* Strings.swift */; };
 		0CA2FEA8298B793B00359D03 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2FEA5298B793B00359D03 /* Model.swift */; };
 		0CA2FEAA298B793B00359D03 /* FrigadeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2FEA7298B793B00359D03 /* FrigadeAPI.swift */; };
 		1DB3821EDCBB3A68F2FB576202DF2A46 /* FrigadeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9CFF724E7A5B222F7C4FF51F92E4E6 /* FrigadeProvider.swift */; };
@@ -43,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C79D282298E0A7000748FBD /* ControlFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlFactory.swift; sourceTree = "<group>"; };
+		0C79D285298E165700748FBD /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		0CA2FEA5298B793B00359D03 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		0CA2FEA7298B793B00359D03 /* FrigadeAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrigadeAPI.swift; sourceTree = "<group>"; };
 		0CB41B211B4045FA094D162E8B1036DE /* Frigade-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Frigade-umbrella.h"; sourceTree = "<group>"; };
@@ -140,6 +144,24 @@
 			path = "Target Support Files/Pods-Frigade_Example";
 			sourceTree = "<group>";
 		};
+		0C79D281298E0A7000748FBD /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				0C79D282298E0A7000748FBD /* ControlFactory.swift */,
+			);
+			name = Controls;
+			path = Frigade/Classes/Controls;
+			sourceTree = "<group>";
+		};
+		0C79D284298E165700748FBD /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				0C79D285298E165700748FBD /* Strings.swift */,
+			);
+			name = Text;
+			path = Frigade/Classes/Text;
+			sourceTree = "<group>";
+		};
 		1158B7E193380E014C599F26BED3D9EB /* ContentViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +201,8 @@
 			children = (
 				45BC99A2D81E486647CA112461DBE3FD /* FrigadeFlow.swift */,
 				AD9CFF724E7A5B222F7C4FF51F92E4E6 /* FrigadeProvider.swift */,
+				0C79D284298E165700748FBD /* Text */,
+				0C79D281298E0A7000748FBD /* Controls */,
 				1158B7E193380E014C599F26BED3D9EB /* ContentViewControllers */,
 				74671F0160A21AD157B31688AD032098 /* FlowViewControllers */,
 				00B622F44A371F4EF74BAD53E9711853 /* Network */,
@@ -430,9 +454,11 @@
 			files = (
 				0CA2FEA8298B793B00359D03 /* Model.swift in Sources */,
 				96EF1A0B023106E7CA10F9E2F26E0651 /* Agent.swift in Sources */,
+				0C79D286298E165700748FBD /* Strings.swift in Sources */,
 				C0EBE4A8F640B37E488E282A6E3795BA /* BasicContentViewController.swift in Sources */,
 				8B520928246087286BAF87E3B4932138 /* Frigade-dummy.m in Sources */,
 				D4BC843DE09E80C1FB80588A668F595F /* FrigadeFlow.swift in Sources */,
+				0C79D283298E0A7000748FBD /* ControlFactory.swift in Sources */,
 				1DB3821EDCBB3A68F2FB576202DF2A46 /* FrigadeProvider.swift in Sources */,
 				0CA2FEAA298B793B00359D03 /* FrigadeAPI.swift in Sources */,
 				63493BE351D581C810DD9FBB3C4EE675 /* SwiperFlowViewController.swift in Sources */,

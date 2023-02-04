@@ -38,10 +38,10 @@ extension ViewController: FrigadeFlowDelegate {
     }
     
     func frigadeFlow(frigadeFlow: FrigadeFlow, startedStep id: String) {
-        NSLog("[FrigadeFlowDelegate] frigadeFlow:startedStep\(id)")
+        NSLog("[FrigadeFlowDelegate] frigadeFlow:startedStep '\(id)'")
     }
     
     func frigadeFlow(frigadeFlow: FrigadeFlow, completedStep id: String) {
-        NSLog("[FrigadeFlowDelegate] frigadeFlow:completedStep\(id)")
+        NSLog("[FrigadeFlowDelegate] frigadeFlow:completedStep '\(id)'")
     }
 }
