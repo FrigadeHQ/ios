@@ -52,11 +52,11 @@ extension ViewController: FrigadeFlowDelegate {
         NSLog("[FrigadeFlowDelegate] frigadeFlowAborted")
     }
     
-    func frigadeFlow(frigadeFlow: FrigadeFlow, startedStep id: String) {
-        NSLog("[FrigadeFlowDelegate] frigadeFlow:startedStep '\(id)'")
+    func frigadeFlow(frigadeFlow: FrigadeFlow, stepStarted id: String) {
+        NSLog("[FrigadeFlowDelegate] frigadeFlow:stepStarted '\(id)'")
     }
     
-    func frigadeFlow(frigadeFlow: FrigadeFlow, completedStep id: String) {
-        NSLog("[FrigadeFlowDelegate] frigadeFlow:completedStep '\(id)'")
+    func frigadeFlow(frigadeFlow: FrigadeFlow, stepCompleted id: String) {
+        NSLog("[FrigadeFlowDelegate] frigadeFlow:stepCompleted '\(id)'")
     }
 }

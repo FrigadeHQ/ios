@@ -4,8 +4,8 @@ public protocol FrigadeFlowDelegate: AnyObject {
     func frigadeFlowStarted(frigadeFlow: FrigadeFlow)
     func frigadeFlowCompleted(frigadeFlow: FrigadeFlow)
     func frigadeFlowAborted(frigadeFlow: FrigadeFlow)
-    func frigadeFlow(frigadeFlow: FrigadeFlow, startedStep id: String)
-    func frigadeFlow(frigadeFlow: FrigadeFlow, completedStep id: String)
+    func frigadeFlow(frigadeFlow: FrigadeFlow, stepStarted id: String)
+    func frigadeFlow(frigadeFlow: FrigadeFlow, stepCompleted id: String)
 }
 
 public class FrigadeFlow {
@@ -26,13 +26,13 @@ public class FrigadeFlow {
         swiperFlowVc.delegate = self
         swiperFlowVc.presentingFlow = self
         viewController.present(swiperFlowVc, animated: true, completion: {self.delegate?.frigadeFlowStarted(frigadeFlow: self)})
-        emitFlowResponse(flowModel: data.first!, actionType: .startedFlow)
+        emitFlowResponse(stepId: data.first?.id, actionType: .startedFlow)
     }
     
-    private func emitFlowResponse(flowModel: FlowModel, actionType: FlowResponsesModel.ActionType) {
+    private func emitFlowResponse(stepId: String?, actionType: FlowResponsesModel.ActionType) {
         let content = FlowResponsesModel(foreignUserId: FrigadeProvider.config?.userId,
                                          flowSlug: flowId,
-                                         stepId: flowModel.id,
+                                         stepId: stepId,
                                          actionType: actionType,
                                          data: "{}")
         FrigadeAPI.flowResponses(content: content).sink(receiveCompletion: { completion in
@@ -48,9 +48,11 @@ extension FrigadeFlow: SwiperFlowViewControllerDelegate {
     func swiperFlowViewController(viewController: SwiperFlowViewController, didShowModel model: FlowModel) {
         if model.id != previousModelId {
             if let previousId = previousModelId {
-                delegate?.frigadeFlow(frigadeFlow: self, completedStep: previousId)
+                delegate?.frigadeFlow(frigadeFlow: self, stepCompleted: previousId)
+                emitFlowResponse(stepId: previousId, actionType: .completedStep)
             }
-            delegate?.frigadeFlow(frigadeFlow: self, startedStep: model.id)
+            delegate?.frigadeFlow(frigadeFlow: self, stepStarted: model.id)
+            emitFlowResponse(stepId: model.id, actionType: .startedStep)
             previousModelId = model.id
         }
     }
@@ -66,16 +68,18 @@ extension FrigadeFlow: SwiperFlowViewControllerDelegate {
     
     func swiperFlowViewControllerOnDismiss(viewController: SwiperFlowViewController) {
         if let previousId = previousModelId {
-            delegate?.frigadeFlow(frigadeFlow: self, completedStep: previousId)
-            previousModelId = nil
+            delegate?.frigadeFlow(frigadeFlow: self, stepCompleted: previousId)
+            emitFlowResponse(stepId: previousId, actionType: .completedStep)
         }
         
         if isDismissingByPrimaryButton {
             delegate?.frigadeFlowCompleted(frigadeFlow: self)
-            emitFlowResponse(flowModel: data.first!, actionType: .completedFlow)
+            emitFlowResponse(stepId: previousModelId, actionType: .completedFlow)
         } else {
             delegate?.frigadeFlowAborted(frigadeFlow: self)
-            emitFlowResponse(flowModel: data.first!, actionType: .abortedFlow)
+            emitFlowResponse(stepId: previousModelId, actionType: .abortedFlow)
         }
+        
+        previousModelId = nil
     }
 }
