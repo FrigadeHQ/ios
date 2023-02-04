@@ -32,6 +32,14 @@ struct ControlFactory {
         }
         return label
     }
+    
+    static func imageView() -> UIImageView {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        return imageView
+    }
 }
 
 struct CommonColor {

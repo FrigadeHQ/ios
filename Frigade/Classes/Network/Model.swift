@@ -9,6 +9,7 @@ struct FlowModel: Codable {
     let subtitle: String?
     let primaryButtonTitle: String?
     let titleStyle: TitleStyleModel?
+    let imageUri: URL?
 }
 
 struct TitleStyleModel: Codable {

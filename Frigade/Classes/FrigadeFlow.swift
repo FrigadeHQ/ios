@@ -1,4 +1,5 @@
 import Foundation
+import Kingfisher
 
 public protocol FrigadeFlowDelegate: AnyObject {
     func frigadeFlowStarted(frigadeFlow: FrigadeFlow)
@@ -19,6 +20,12 @@ public class FrigadeFlow {
         assert(!data.isEmpty)
         self.flowId = flowId
         self.data = data
+        
+        // use kingfisher to prefetch images (BasicContentController should hit the cache then)
+        let imageUris = data.compactMap({$0.imageUri})
+        if !imageUris.isEmpty {
+            ImagePrefetcher(urls: imageUris).start()
+        }
     }
     
     public func present(overViewController viewController: UIViewController) {
