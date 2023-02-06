@@ -11,6 +11,8 @@ struct ControlFactory {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(title, for: .normal)
+//        button.titleLabel?.adjustsFontForContentSizeCategory = true
+        button.titleLabel?.font = .preferredFont(forTextStyle: .title3)
         button.heightAnchor.constraint(greaterThanOrEqualToConstant: 60).isActive = true
         button.layer.cornerRadius = 30
         button.backgroundColor = .black
@@ -43,6 +45,16 @@ struct ControlFactory {
 }
 
 struct CommonColor {
-    static let darkText = UIColor(white: 0.01, alpha: 1)
-    static let lightText = UIColor(white: 0.1, alpha: 1)
+    static let darkText = UIColor(fromRGB: 0x000000)
+    static let lightText = UIColor(fromRGB: 0x6B6B6B)
+}
+
+extension UIColor {
+    convenience init(fromRGB value: Int) {
+        assert(value >= 0 && value <= 0xFFFFFF)
+        self.init(red: CGFloat((Float((value & 0xff0000) >> 16)) / 255.0),
+                  green: CGFloat((Float((value & 0x00ff00) >> 8)) / 255.0),
+                  blue: CGFloat((Float((value & 0x0000ff) >> 0)) / 255.0),
+                  alpha: 1.0)
+    }
 }
