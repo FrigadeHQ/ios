@@ -2,7 +2,14 @@ import Foundation
 import Combine
 
 struct Agent {
-    let session = URLSession.shared
+    private let session: URLSession = {
+        let config = URLSessionConfiguration.default
+        config.requestCachePolicy = .reloadIgnoringLocalCacheData
+        config.urlCache = nil
+        config.timeoutIntervalForRequest = 15
+        config.timeoutIntervalForResource = 15
+        return URLSession(configuration: config)
+    }()
     
     struct Response<T> {
         let value: T
@@ -14,8 +21,9 @@ struct Agent {
     }
     
     func run<T: Decodable>(_ request: URLRequest, _ decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<Response<T>, Error> {
-        return URLSession.shared
+        return self.session
             .dataTaskPublisher(for: request)
+            .retry(1)
             .tryMap { result -> Response<T> in
                 guard let httpResponse = result.response as? HTTPURLResponse,
                       httpResponse.statusCode == 200 || httpResponse.statusCode == 201 else {

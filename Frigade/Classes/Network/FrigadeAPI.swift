@@ -26,7 +26,6 @@ extension FrigadeAPI {
         if let apiKey = FrigadeProvider.config?.apiKey {
             request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         }
-        request.timeoutInterval = 15
         return agent.run(request)
             .map(\.value)
             .eraseToAnyPublisher()
