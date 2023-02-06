@@ -13,7 +13,7 @@ extension FrigadeAPI {
         return run(URLRequest(url: base.appendingPathComponent("flows/\(flowId)")))
     }
     
-    static func flowResponses(content: FlowResponsesModel) -> AnyPublisher<DataArrayResponse<FlowModel>, Error> {
+    static func flowResponses(content: FlowResponsesModel) -> AnyPublisher<FlowResponsesStatusModel, Error> {
         var request = URLRequest(url: base.appendingPathComponent("flowResponses"))
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

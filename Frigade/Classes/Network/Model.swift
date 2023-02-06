@@ -43,3 +43,7 @@ struct FlowResponsesModel: Codable {
     let actionType: ActionType
     let data: String
 }
+
+// TODO: check with christian what he calls this on backend
+struct FlowResponsesStatusModel: Codable {
+}
