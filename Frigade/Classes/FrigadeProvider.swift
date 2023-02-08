@@ -34,21 +34,24 @@ public class FrigadeProvider {
     
     public static func setup(configuration: FrigadeConfiguration) {
         self.config = configuration
-  
+        
     }
     
-    public static func load(flowId: String, completionHandler: @escaping (Result<FrigadeFlow, FrigadeProviderError>)->Void) {       
-        FrigadeAPI.flow(flowId: flowId).sink(receiveCompletion: { completion in
-            if case let .failure(error) = completion {
-                completionHandler(.failure(.API(error)))
+    public static func load(flowId: String, completionHandler: @escaping (Result<FrigadeFlow, FrigadeProviderError>)->Void) {
+        FrigadeAPI.flow(flowId: flowId).subscribe(Subscribers.Sink(
+            receiveCompletion: { completion in
+                if case let .failure(error) = completion {
+                    completionHandler(.failure(.API(error)))
+                }
+            },
+            receiveValue: { response in
+                // don't accept empty flows
+                guard !response.data.isEmpty else {
+                    completionHandler(.failure(.invalidFlow))
+                    return
+                }
+                completionHandler(.success(FrigadeFlow(flowId: flowId, data: response.data)))
             }
-        }, receiveValue: { response in
-            // don't accept empty flows
-            guard !response.data.isEmpty else {
-                completionHandler(.failure(.invalidFlow))
-                return
-            }
-            completionHandler(.success(FrigadeFlow(flowId: flowId, data: response.data)))
-        }).store(in: &FrigadeAPI.requests)
+        ))
     }
 }

@@ -1,5 +1,6 @@
 import Foundation
 import Kingfisher
+import Combine
 
 public protocol FrigadeFlowDelegate: AnyObject {
     func frigadeFlowStarted(frigadeFlow: FrigadeFlow)
@@ -55,12 +56,16 @@ public class FrigadeFlow {
                                          stepId: stepId,
                                          actionType: actionType,
                                          data: "{}")
-        FrigadeAPI.flowResponses(content: content).sink(receiveCompletion: { completion in
-            if case let .failure(error) = completion {
-                NSLog("Error: \(error.localizedDescription)")
+        FrigadeAPI.flowResponses(content: content).subscribe(Subscribers.Sink(
+            receiveCompletion: { completion in
+                if case let .failure(error) = completion {
+                    NSLog("Error: \(error.localizedDescription)")
+                }
+                
+            },
+            receiveValue: { _ in
             }
-        }, receiveValue: { _ in
-        }).store(in: &FrigadeAPI.requests)
+        ))
     }
 }
 

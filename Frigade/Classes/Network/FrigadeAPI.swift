@@ -7,8 +7,6 @@ enum FrigadeAPI {
 }
 
 extension FrigadeAPI {
-    static var requests = Set<AnyCancellable>()
-    
     static func flow(flowId: String) -> AnyPublisher<DataArrayResponse<FlowModel>, Error> {
         return run(URLRequest(url: base.appendingPathComponent("flows/\(flowId)")))
     }
