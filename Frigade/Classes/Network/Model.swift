@@ -3,7 +3,7 @@ struct DataArrayResponse<T:Codable>: Codable {
     let data: [T]
 }
 
-struct FlowModel: Codable {
+public struct FlowModel: Codable {
     let id: String
     let title: String
     let subtitle: String?

@@ -29,6 +29,10 @@ public class FrigadeFlow {
         }
     }
     
+    public func getData() -> [FlowModel]  {
+        return data
+    }
+    
     public func present(overViewController viewController: UIViewController, presentationStyle: UIModalPresentationStyle = .fullScreen) {
         // FIXME: TODO: this is temporary hack to make things look OK for now, remove later
         ControlFactory.setupDefaultAppearance()
