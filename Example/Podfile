@@ -3,10 +3,9 @@ use_frameworks!
 platform :ios, '13.0'
 
 target 'Frigade_Example' do
+  pod 'FLEX', :configurations => ['Debug']
   pod 'Frigade', :path => '../'
   target 'Frigade_Tests' do
     inherit! :search_paths
-
-
   end
 end
