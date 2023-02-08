@@ -82,6 +82,11 @@ class SwiperFlowViewController: UIViewController {
     }
     
     private func updateCommonControls(with model: FlowModel) {
+        if (model.primaryButtonTitle == nil) {
+            primaryButton.isHidden = true
+        } else {
+            primaryButton.isHidden = false
+        }
         primaryButton.setTitle(model.primaryButtonTitle ?? Text.DefaultContinue, for: .normal)
     }
     

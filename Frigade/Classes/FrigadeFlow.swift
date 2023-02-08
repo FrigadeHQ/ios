@@ -28,15 +28,25 @@ public class FrigadeFlow {
         }
     }
     
-    public func present(overViewController viewController: UIViewController) {
+    public func present(overViewController viewController: UIViewController, presentationStyle: UIModalPresentationStyle = .fullScreen) {
         // FIXME: TODO: this is temporary hack to make things look OK for now, remove later
         ControlFactory.setupDefaultAppearance()
         
         let swiperFlowVc = SwiperFlowViewController(data: data)
+        swiperFlowVc.modalPresentationStyle = presentationStyle
         swiperFlowVc.delegate = self
         swiperFlowVc.presentingFlow = self
-        viewController.present(swiperFlowVc, animated: true, completion: {self.delegate?.frigadeFlowStarted(frigadeFlow: self)})
+        viewController.present(swiperFlowVc, animated: false, completion: {self.delegate?.frigadeFlowStarted(frigadeFlow: self)})
         emitFlowResponse(stepId: data.first?.id, actionType: .startedFlow)
+    }
+    
+    public func getViewController() -> UIViewController {
+        let swiperFlowVc = SwiperFlowViewController(data: data)
+        swiperFlowVc.delegate = self
+        swiperFlowVc.presentingFlow = self
+        self.delegate?.frigadeFlowStarted(frigadeFlow: self)
+        emitFlowResponse(stepId: data.first?.id, actionType: .startedFlow)
+        return swiperFlowVc
     }
     
     private func emitFlowResponse(stepId: String?, actionType: FlowResponsesModel.ActionType) {

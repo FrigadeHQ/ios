@@ -7,12 +7,28 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        button.setTitle("Load flow", for: .normal)
-        button.addTarget(self, action: #selector(onLoadFlow), for: .touchUpInside)
+        //button.setTitle("Load flow", for: .normal)
+        //button.addTarget(self, action: #selector(onLoadFlow), for: .touchUpInside)
         
-        view.addSubview(button)
-        button.frame = CGRect(x: view.center.x-128, y: 64, width: 256, height: 48)
-        button.backgroundColor = .black
+        //view.addSubview(button)
+        //button.frame = CGRect(x: view.center.x-128, y: 64, width: 256, height: 48)
+        //button.backgroundColor = .black
+        
+        FrigadeProvider.load(flowId: "flow_NP2Petdcsjxq613V") { result in
+            switch result {
+            case .success(let flow):
+                flow.delegate = self
+                flow.present(overViewController: self)
+                //let vc = flow.getViewController()
+                //self.view.addSubview(vc.view)
+            case .failure(let error):
+                NSLog("Error loading flow. Reason: \(error.localizedDescription)")
+            }
+            
+            self.button.setTitle("Load flow", for: .normal)
+            self.button.isUserInteractionEnabled = true
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
