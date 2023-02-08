@@ -1,5 +1,6 @@
 # macOS
 .DS_Store
+Example/Frigade.xcworkspace/xcuserdata/
 
 # Xcode
 build/
