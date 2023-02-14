@@ -1,10 +1,11 @@
 import Foundation
-
+import Kingfisher
 
 protocol SwiperFlowViewControllerDelegate: AnyObject {
     func swiperFlowViewController(viewController: SwiperFlowViewController, didShowModel model: FlowModel)
     func swiperFlowViewController(viewController: SwiperFlowViewController, didTapPrimaryButtonForModel model: FlowModel)
     func swiperFlowViewControllerOnDismiss(viewController: SwiperFlowViewController)
+    func swiperFlowViewControllerDidAppear(viewController: SwiperFlowViewController)
 }
 
 class SwiperFlowViewController: UIViewController {
@@ -13,7 +14,6 @@ class SwiperFlowViewController: UIViewController {
     
     // used to keep the owning flow alive until VC is dismissed/deallocated
     var presentingFlow: FrigadeFlow?
-    
     private var viewControllers: [UIViewController] = []
     private var currentIndex = 0
     
@@ -36,6 +36,12 @@ class SwiperFlowViewController: UIViewController {
         self.data = data
         super.init(nibName: nil, bundle: nil)
         assert(Set(data.map({$0.id})).count == self.data.count, "all IDs must be unique")
+        
+        // use kingfisher to prefetch images (BasicContentController should hit the cache then)
+        let imageUris = data.compactMap({$0.imageUri})
+        if !imageUris.isEmpty {
+            ImagePrefetcher(urls: imageUris).start()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -44,6 +50,7 @@ class SwiperFlowViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        delegate?.swiperFlowViewControllerDidAppear(viewController: self)
         delegate?.swiperFlowViewController(viewController: self, didShowModel: data[currentIndex])
     }
 
@@ -57,7 +64,10 @@ class SwiperFlowViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+
+        // FIXME: TODO: this is temporary hack to make things look OK for now, remove later
+        ControlFactory.setupDefaultAppearance()
+
         addChild(contentController)
         contentController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(contentController.view)
@@ -108,7 +118,7 @@ class SwiperFlowViewController: UIViewController {
     
     @objc private func onPrimaryButton() {
         let model = data[currentIndex]
-        self.delegate?.swiperFlowViewController(viewController: self, didTapPrimaryButtonForModel: model)
+        delegate?.swiperFlowViewController(viewController: self, didTapPrimaryButtonForModel: model)
     }
     
     public func advanceToNextPage() {

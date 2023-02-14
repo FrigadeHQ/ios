@@ -1,5 +1,4 @@
 import Foundation
-import Kingfisher
 import Combine
 
 public protocol FrigadeFlowDelegate: AnyObject {
@@ -10,48 +9,30 @@ public protocol FrigadeFlowDelegate: AnyObject {
     func frigadeFlow(frigadeFlow: FrigadeFlow, stepCompleted id: String)
 }
 
-public class FrigadeFlow {
-    public weak var delegate: FrigadeFlowDelegate?
+public class FrigadeFlow: NSObject {
     public let flowId: String
+    public weak var delegate: FrigadeFlowDelegate?
+    public var viewController: UIViewController { return flowViewController }
+    
     private let data: [FlowModel]
     private var isDismissingByPrimaryButton = false
     private var previousModelId: String?
+    private var flowViewController: SwiperFlowViewController
     
     init(flowId: String, data: [FlowModel]) {
         assert(!data.isEmpty)
         self.flowId = flowId
         self.data = data
+        self.flowViewController = SwiperFlowViewController(data: data)
+        super.init()
         
-        // use kingfisher to prefetch images (BasicContentController should hit the cache then)
-        let imageUris = data.compactMap({$0.imageUri})
-        if !imageUris.isEmpty {
-            ImagePrefetcher(urls: imageUris).start()
-        }
+        flowViewController.presentingFlow = self
+        flowViewController.delegate = self
     }
-    
-    public func getData() -> [FlowModel]  {
-        return data
-    }
-    
-    public func present(overViewController viewController: UIViewController, presentationStyle: UIModalPresentationStyle = .fullScreen) {
-        // FIXME: TODO: this is temporary hack to make things look OK for now, remove later
-        ControlFactory.setupDefaultAppearance()
-        
-        let swiperFlowVc = SwiperFlowViewController(data: data)
-        swiperFlowVc.modalPresentationStyle = presentationStyle
-        swiperFlowVc.delegate = self
-        swiperFlowVc.presentingFlow = self
-        viewController.present(swiperFlowVc, animated: false, completion: {self.delegate?.frigadeFlowStarted(frigadeFlow: self)})
-        emitFlowResponse(stepId: data.first?.id, actionType: .startedFlow)
-    }
-    
-    public func getViewController() -> UIViewController {
-        let swiperFlowVc = SwiperFlowViewController(data: data)
-        swiperFlowVc.delegate = self
-        swiperFlowVc.presentingFlow = self
-        self.delegate?.frigadeFlowStarted(frigadeFlow: self)
-        emitFlowResponse(stepId: data.first?.id, actionType: .startedFlow)
-        return swiperFlowVc
+
+    public func present(overViewController viewController: UIViewController, presentationStyle: UIModalPresentationStyle, animated: Bool) {
+        flowViewController.modalPresentationStyle = presentationStyle
+        viewController.present(flowViewController, animated: animated, completion: nil)
     }
     
     private func emitFlowResponse(stepId: String?, actionType: FlowResponsesModel.ActionType) {
@@ -89,7 +70,11 @@ extension FrigadeFlow: SwiperFlowViewControllerDelegate {
     func swiperFlowViewController(viewController: SwiperFlowViewController, didTapPrimaryButtonForModel model: FlowModel) {
         if model.id == data.last?.id {
             isDismissingByPrimaryButton = true
-            viewController.dismiss(animated: true)
+            if viewController.presentingViewController != nil {
+                viewController.dismiss(animated: true)
+            } else {
+                self.swiperFlowViewControllerOnDismiss(viewController: viewController)
+            }
         } else {
             viewController.advanceToNextPage()
         }
@@ -110,5 +95,13 @@ extension FrigadeFlow: SwiperFlowViewControllerDelegate {
         }
         
         previousModelId = nil
+        
+        // break cycle so objects can be released
+        flowViewController.presentingFlow = nil
+    }
+    
+    func swiperFlowViewControllerDidAppear(viewController: SwiperFlowViewController) {
+        emitFlowResponse(stepId: data.first?.id, actionType: .startedFlow)
+        delegate?.frigadeFlowStarted(frigadeFlow: self)
     }
 }

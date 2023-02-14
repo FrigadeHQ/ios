@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C71C74E299B4E1C00112324 /* ModalFullScreenExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C71C74D299B4E1C00112324 /* ModalFullScreenExample.swift */; };
+		0C71C750299B4EE000112324 /* PageSheetExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C71C74F299B4EE000112324 /* PageSheetExample.swift */; };
+		0C71C752299B531700112324 /* InlineExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C71C751299B531700112324 /* InlineExample.swift */; };
 		1914604B14F1F62DA710918B /* Pods_Frigade_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDD7A1C1E15201591CAF742 /* Pods_Frigade_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
-		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
+		607FACD81AFB9204008FA782 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* TabBarController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
@@ -28,6 +31,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C71C74D299B4E1C00112324 /* ModalFullScreenExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalFullScreenExample.swift; sourceTree = "<group>"; };
+		0C71C74F299B4EE000112324 /* PageSheetExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageSheetExample.swift; sourceTree = "<group>"; };
+		0C71C751299B531700112324 /* InlineExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineExample.swift; sourceTree = "<group>"; };
 		20AD064BBD9157BD5D773284 /* Pods-Frigade_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Frigade_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Frigade_Tests/Pods-Frigade_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		26BEA097D1F6FB90B174DC4E /* Pods-Frigade_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Frigade_Example.release.xcconfig"; path = "Target Support Files/Pods-Frigade_Example/Pods-Frigade_Example.release.xcconfig"; sourceTree = "<group>"; };
 		29EED79356FF0CAF37A9A0C8 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -36,7 +42,7 @@
 		607FACD01AFB9204008FA782 /* Frigade_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Frigade_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		607FACD71AFB9204008FA782 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		607FACD71AFB9204008FA782 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -94,7 +100,10 @@
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				607FACD71AFB9204008FA782 /* TabBarController.swift */,
+				0C71C74D299B4E1C00112324 /* ModalFullScreenExample.swift */,
+				0C71C74F299B4EE000112324 /* PageSheetExample.swift */,
+				0C71C751299B531700112324 /* InlineExample.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -336,8 +345,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				607FACD81AFB9204008FA782 /* TabBarController.swift in Sources */,
+				0C71C74E299B4E1C00112324 /* ModalFullScreenExample.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				0C71C750299B4EE000112324 /* PageSheetExample.swift in Sources */,
+				0C71C752299B531700112324 /* InlineExample.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
