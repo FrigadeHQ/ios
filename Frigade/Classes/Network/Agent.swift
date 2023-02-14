@@ -27,6 +27,11 @@ struct Agent {
             .tryMap { result -> Response<T> in
                 guard let httpResponse = result.response as? HTTPURLResponse,
                       httpResponse.statusCode == 200 || httpResponse.statusCode == 201 else {
+                    if (result.response as? HTTPURLResponse)?.statusCode == 404 {
+                        throw URLError(.resourceUnavailable)
+                    } else if (result.response as? HTTPURLResponse)?.statusCode == 403 {
+                        throw URLError(.userAuthenticationRequired)
+                    }
                     throw URLError(.badServerResponse)
                 }
                 

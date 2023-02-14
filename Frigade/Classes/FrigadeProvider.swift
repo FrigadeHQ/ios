@@ -14,6 +14,8 @@ public struct FrigadeConfiguration {
 
 public enum FrigadeProviderError: Error {
     case unknown
+    case apiKey
+    case objectNotFound
     case invalidFlow
     case API(Error)
 }
@@ -41,7 +43,13 @@ public class FrigadeProvider {
         FrigadeAPI.flow(flowId: flowId).subscribe(Subscribers.Sink(
             receiveCompletion: { completion in
                 if case let .failure(error) = completion {
-                    completionHandler(.failure(.API(error)))
+                    if (error as? URLError)?.code == URLError.resourceUnavailable {
+                        completionHandler(.failure(.objectNotFound))
+                    } else if (error as? URLError)?.code == URLError.userAuthenticationRequired {
+                        completionHandler(.failure(.apiKey))
+                    } else {
+                        completionHandler(.failure(.API(error)))
+                    }
                 }
             },
             receiveValue: { response in
