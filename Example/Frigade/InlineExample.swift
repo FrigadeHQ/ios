@@ -8,7 +8,7 @@ class InlineExample: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        button.setTitle("Load flow", for: .normal)
+        button.setTitle("Inline", for: .normal)
         button.addTarget(self, action: #selector(onLoadFlow), for: .touchUpInside)
         
         view.addSubview(button)
@@ -34,7 +34,7 @@ class InlineExample: UIViewController {
                 NSLog("Error loading flow. Reason: \(error.localizedDescription)")
             }
             
-            self.button.setTitle("Load flow", for: .normal)
+            self.button.setTitle("Inline", for: .normal)
             self.button.isUserInteractionEnabled = true
         }
     }
