@@ -121,7 +121,7 @@ class SwiperFlowViewController: UIViewController {
         delegate?.swiperFlowViewController(viewController: self, didTapPrimaryButtonForModel: model)
     }
     
-    public func advanceToNextPage() {
+    func advanceToNextPage() {
         guard let nextController = viewController(forIndex: currentIndex+1) else { return }
         currentIndex = currentIndex+1
         contentController.setViewControllers([nextController], direction: .forward, animated: true)
